@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <title>Tech CPR Support System</title>
+</head>
+
+<body>
+        <ul class="nav nav-tabs">
+             <li class="nav-item">
+                <a class="nav-link text-danger font-weight-bold" href="/supportsystem">| Tech CPR Support System |</a>
+            </li> 
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/supportsystem/viewposts">View Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-dark" href="/supportsystem/addpost">Add Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/account/logout">Log Out</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link disabled" href="">Logged in as {{ user.first_name }}</a>
+            </li>
+            {% endif %} 
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/account">Login</a>
+            </li>
+        {% endif %}
+        </ul>
+    <div class="container">
+        <div>
+            <br></br>
+            <h1>Welcome to the website</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies quam quis urna tincidunt varius. In et odio ornare, consectetur magna non, sagittis nisi. Aliquam imperdiet ligula at suscipit fermentum. Cras imperdiet velit tempus mi placerat efficitur. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse potenti.</p>
+        </div>
+        <div>
+            <h1>Add Post</h1>
+            <hr></hr>
+            <p>This post will be submitted by {{ user }}</p>
+            <form method="POST" action="{% url 'addpost' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">Post Title</label>
+                {{ form.posttitle }}
+            </div>
+             <div class="form-group">
+                <label for="exampleFormControlTextarea1">Post text</label>
+                {{ form.postbody }}
+                <small>Please describe the issue you are experiencing in detail.</small>
+            </div>
+             <div class="form-group">
+                <label for="exampleFormControlFile1">Upload Media</label>
+                {{ form.postmedia }}
+            </div>
+                <button type="submit" class="btn btn-danger">Post</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

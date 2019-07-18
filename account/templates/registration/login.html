@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <title>Tech CPR Support System</title>
+</head>
+
+<body>
+        <ul class="nav nav-tabs">
+             <li class="nav-item">
+                <a class="nav-link text-danger font-weight-bold" href="/supportsystem">| Tech CPR Support System |</a>
+            </li> 
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/supportsystem/viewposts">View Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/supportsystem/addpost">Add Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/account/logout">Log Out</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link disabled " href="">Logged in as {{ user.first_name }}</a>
+            </li>
+            {% endif %} 
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link active text-dark" href="/account">Login</a>
+            </li>
+        {% endif %}
+        </ul>
+    <div class="container">
+        <div>
+            <br></br>
+            <h1>Welcome to the web app</h1>
+            <p>Insert TECH CPR TEXT.</p>
+        </div>
+        <hr></hr>
+        <div>
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form.username.label_tag }}
+                {{ form.username }}
+
+                {{ form.password.label_tag }}
+                {{ form.password }}
+
+                {{ form.errors }}
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+

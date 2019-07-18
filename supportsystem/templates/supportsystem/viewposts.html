@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <title>Tech CPR Support System</title>
+</head>
+
+<body>
+        <ul class="nav nav-tabs">
+             <li class="nav-item">
+                <a class="nav-link text-danger font-weight-bold" href="/supportsystem">| Tech CPR Support System |</a>
+            </li> 
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link active text-dark" href="/supportsystem/viewposts">View Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/supportsystem/addpost">Add Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/account/logout">Log Out</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link disabled " href="">Logged in as {{ user.first_name }}</a>
+            </li>
+            {% endif %} 
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/account">Login</a>
+            </li>
+        {% endif %}
+        </ul>
+    <div class="container">
+        <div>
+            <br></br>
+            <h1>Welcome to the website</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies quam quis urna tincidunt varius. In et odio ornare, consectetur magna non, sagittis nisi. Aliquam imperdiet ligula at suscipit fermentum. Cras imperdiet velit tempus mi placerat efficitur. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse potenti.</p>
+        </div>
+        <div>
+            <h1>All Active Posts</h1>
+            <hr></hr>
+        </div>
+        <div class="list-group">
+            {% for c in posts %}
+            <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ c.posttitle}}</h5>
+            <small class="text-muted">{{ c.date_added }}</small>
+            </div>
+            <p class="mb-1">{{ c.postbody}}</p>
+            <small class="text-muted">{{ c.user }} {{ c.user.extendeduserprofile.role }} at {{ c.user.extendeduserprofile.company }}</small>
+            <p>{{ comments }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+
+</html>
